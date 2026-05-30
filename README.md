@@ -2,7 +2,7 @@
 
 A real-time **Cyber Digital Twin (CDT)** monitoring dashboard for agri-food supply chains — providing a live virtual replica of 4 supply chain nodes with real-time anomaly detection, alert logging, and historical trend visualisation.
 
-## 📌 Project Overview
+## Project Overview
 
 This project implements the **Digital Twin monitoring layer** of a Semantic-Aware CDT architecture for agri-food supply chains. It creates a virtual mirror of physical supply chain nodes — continuously monitoring sensor data, detecting anomalies, and providing operators with real-time situational awareness.
 
@@ -21,7 +21,7 @@ This project implements the **Digital Twin monitoring layer** of a Semantic-Awar
 - 💻 **CPU Load** — controller health (safe: 0–80%)
 - 🌐 **Network Traffic** — anomalous traffic detection (safe: 0–900 KB/s)
 
-## 🔬 Research Motivation
+##  Research Motivation
 
 This dashboard is a **core prototype** for PhD research on Semantic-Aware Cyber Digital Twins for Agri-food Supply Chains at Maynooth University (Dr. Mansoor Ahmed, ADAPT Centre).
 
@@ -32,7 +32,7 @@ In a full SA-CDT architecture, this dashboard represents:
 
 The next research step is adding a **semantic reasoning layer** (OWL ontology) that interprets anomalies in context — distinguishing sensor faults from cyberattacks.
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 | Component | Technology |
 |---|---|
@@ -41,7 +41,7 @@ The next research step is adding a **semantic reasoning layer** (OWL ontology) t
 | Visualisation | Chart.js |
 | Twin Simulation | Python sensor models |
 
-## 🚀 How to Run
+##  How to Run
 
 ```bash
 # 1. Clone the repository
@@ -58,7 +58,7 @@ python app.py
 # http://localhost:5000
 ```
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 agri-food-digital-twin-dashboard/
@@ -68,7 +68,7 @@ agri-food-digital-twin-dashboard/
 └── README.md
 ```
 
-## 🔮 Future Extensions
+## Future Extensions
 
 - Add OWL ontology semantic reasoning layer
 - Integrate real IoT hardware (Raspberry Pi sensors)
@@ -76,12 +76,12 @@ agri-food-digital-twin-dashboard/
 - Add MQTT protocol for real sensor data ingestion
 - Implement federated CDT across multiple supply chain operators
 
-## 🔗 Related Projects
+## Related Projects
 
 - [Agri-food IoT Anomaly Monitor](https://github.com/AsadRaza067/agri-iot-anomaly-monitor) — IoT data layer
 - [Supply Chain Threat Classifier](https://github.com/AsadRaza067/supply-chain-threat-classifier) — ML threat detection
 
-## 👤 Author
+## Author
 
 **Asad Raza**
 BSc Computer Science — BIIT, PMAS Arid Agriculture University Rawalpindi

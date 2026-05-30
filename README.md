@@ -15,11 +15,11 @@ This project implements the **Digital Twin monitoring layer** of a Semantic-Awar
 | Distribution Hub D | Distribution |
 
 ### Metrics Monitored Per Node:
-- 🌡 **Temperature** — cold chain integrity (safe: 1–8°C)
-- 💧 **Humidity** — storage conditions (safe: 55–85%)
-- 📊 **Atmospheric Pressure** — environment monitoring (safe: 95–105 kPa)
-- 💻 **CPU Load** — controller health (safe: 0–80%)
-- 🌐 **Network Traffic** — anomalous traffic detection (safe: 0–900 KB/s)
+-  **Temperature** — cold chain integrity (safe: 1–8°C)
+-  **Humidity** — storage conditions (safe: 55–85%)
+-  **Atmospheric Pressure** — environment monitoring (safe: 95–105 kPa)
+-  **CPU Load** — controller health (safe: 0–80%)
+-  **Network Traffic** — anomalous traffic detection (safe: 0–900 KB/s)
 
 ##  Research Motivation
 

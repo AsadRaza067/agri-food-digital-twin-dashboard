@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agri-food Digital Twin Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',sans-serif;background:#0d1b2a;color:#e0e6ed;}
+
+    header{
+      background:linear-gradient(135deg,#1B4F8A,#0a2d52);
+      padding:16px 28px;display:flex;align-items:center;justify-content:space-between;
+      border-bottom:2px solid #F0A500;
+    }
+    header h1{font-size:1.2rem;font-weight:700;color:#fff;}
+    header p{font-size:0.75rem;color:#aac4e0;margin-top:2px;}
+    .live-badge{
+      background:#F0A500;color:#0d1b2a;font-size:0.7rem;font-weight:700;
+      padding:4px 12px;border-radius:20px;animation:pulse 2s infinite;
+    }
+    @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.6;}}
+
+    .container{max-width:1300px;margin:0 auto;padding:22px 20px;}
+
+    /* ── Stats ── */
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px;}
+    .stat-card{
+      background:#162840;border-radius:10px;padding:16px 18px;
+      border-left:4px solid #1B4F8A;
+    }
+    .stat-card.green{border-left-color:#38a169;}
+    .stat-card.red  {border-left-color:#e53e3e;}
+    .stat-card.gold {border-left-color:#F0A500;}
+    .stat-card label{font-size:0.68rem;color:#7a9bbf;text-transform:uppercase;letter-spacing:.5px;}
+    .stat-card .val {font-size:2rem;font-weight:700;color:#e0e6ed;margin-top:4px;}
+    .stat-card.green .val{color:#68d391;}
+    .stat-card.red   .val{color:#fc8181;}
+    .stat-card.gold  .val{color:#F0A500;}
+
+    /* ── Node grid ── */
+    .node-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:22px;}
+    .node-card{
+      background:#162840;border-radius:10px;padding:18px;
+      border:1px solid #1e3a5f;transition:border-color .3s;
+    }
+    .node-card.anomaly{border-color:#e53e3e;box-shadow:0 0 12px rgba(229,62,62,.2);}
+    .node-card.normal {border-color:#38a169;}
+
+    .node-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+    .node-name{font-weight:700;font-size:.9rem;color:#e0e6ed;}
+    .node-type{font-size:.7rem;color:#7a9bbf;margin-top:2px;}
+    .node-badge{
+      font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:12px;white-space:nowrap;
+    }
+    .badge-normal {background:#1a3d2b;color:#68d391;}
+    .badge-anomaly{background:#3d1a1a;color:#fc8181;}
+
+    .metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    .metric{background:#0d1b2a;border-radius:6px;padding:8px 10px;}
+    .metric label{font-size:.65rem;color:#7a9bbf;text-transform:uppercase;}
+    .metric .mval{font-size:1.1rem;font-weight:700;margin-top:2px;}
+    .mval.ok  {color:#68d391;}
+    .mval.bad {color:#fc8181;}
+
+    .node-alerts{margin-top:10px;}
+    .alert-item{
+      background:#2d1a1a;border-left:3px solid #e53e3e;
+      border-radius:4px;padding:6px 10px;margin-top:6px;font-size:.75rem;
+    }
+    .alert-item .atype{font-weight:700;color:#fc8181;}
+    .alert-item .ainfo{color:#aaa;margin-top:1px;}
+
+    /* ── Chart ── */
+    .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px;}
+    .chart-box{background:#162840;border-radius:10px;padding:18px;border:1px solid #1e3a5f;}
+    .chart-box h3{font-size:.85rem;color:#aac4e0;margin-bottom:14px;font-weight:600;}
+
+    /* ── Alert log ── */
+    .log-box{background:#162840;border-radius:10px;padding:18px;border:1px solid #1e3a5f;}
+    .log-box h3{font-size:.85rem;color:#aac4e0;margin-bottom:12px;font-weight:600;}
+    .log-entry{
+      display:flex;justify-content:space-between;align-items:flex-start;
+      border-bottom:1px solid #1e3a5f;padding:9px 0;font-size:.78rem;
+    }
+    .log-entry:last-child{border-bottom:none;}
+    .log-node{font-weight:700;color:#e0e6ed;}
+    .log-detail{color:#aaa;margin-top:2px;}
+    .log-time{color:#7a9bbf;font-size:.7rem;white-space:nowrap;margin-left:12px;}
+    .sev-critical{background:#3d1a1a;color:#fc8181;border-radius:4px;padding:2px 7px;font-size:.68rem;font-weight:700;}
+    .sev-warning {background:#3d2f0a;color:#F0A500;border-radius:4px;padding:2px 7px;font-size:.68rem;font-weight:700;}
+    .no-alerts{color:#7a9bbf;font-size:.82rem;text-align:center;padding:18px 0;}
+
+    .refresh-btn{
+      background:#1B4F8A;color:#fff;border:none;padding:8px 20px;
+      border-radius:6px;cursor:pointer;font-size:.82rem;font-weight:600;
+      margin-bottom:18px;
+    }
+    .refresh-btn:hover{background:#163d6e;}
+
+    @media(max-width:700px){
+      .chart-row{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>🌾 Agri-food Supply Chain — Cyber Digital Twin</h1>
+    <p>Real-time virtual replica monitoring · 4 supply chain nodes · Anomaly detection active</p>
+  </div>
+  <span class="live-badge">● LIVE TWIN</span>
+</header>
+
+<div class="container">
+
+  <button class="refresh-btn" onclick="fetchSnapshot()">▶ Refresh Twin Snapshot</button>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card green"><label>Healthy Nodes</label><div class="val" id="sHealthy">—</div></div>
+    <div class="stat-card red">  <label>Nodes at Risk</label><div class="val" id="sRisk">—</div></div>
+    <div class="stat-card gold"> <label>Anomaly Rate</label><div class="val" id="sRate">—</div></div>
+    <div class="stat-card">      <label>Snapshots</label>  <div class="val" id="sSnaps">—</div></div>
+    <div class="stat-card">      <label>Total Anomalies</label><div class="val" id="sTotal">—</div></div>
+  </div>
+
+  <!-- Node cards -->
+  <div class="node-grid" id="nodeGrid"></div>
+
+  <!-- Charts -->
+  <div class="chart-row">
+    <div class="chart-box">
+      <h3>🌡 Temperature History — All Nodes</h3>
+      <canvas id="tempChart" height="120"></canvas>
+    </div>
+    <div class="chart-box">
+      <h3>💻 CPU Load History — All Nodes</h3>
+      <canvas id="cpuChart" height="120"></canvas>
+    </div>
+  </div>
+
+  <!-- Alert log -->
+  <div class="log-box">
+    <h3>🚨 Anomaly Alert Log</h3>
+    <div id="alertLog"><p class="no-alerts">No anomalies detected yet.</p></div>
+  </div>
+
+</div>
+
+<script>
+const COLORS = ['#1B4F8A','#F0A500','#38a169','#e53e3e'];
+const nodeIds = ['NODE-01','NODE-02','NODE-03','NODE-04'];
+let tempChart, cpuChart;
+const tempHistory = {labels:[], datasets:[]};
+const cpuHistory  = {labels:[], datasets:[]};
+const alertLog = [];
+let snap = 0;
+
+function initCharts(){
+  const makeDatasets = (ids) => ids.map((id,i)=>({
+    label: id, data: [], borderColor: COLORS[i],
+    backgroundColor: COLORS[i]+'22', tension:.4, fill:false, pointRadius:3
+  }));
+
+  tempChart = new Chart(document.getElementById('tempChart').getContext('2d'),{
+    type:'line',
+    data:{labels:[], datasets: makeDatasets(nodeIds)},
+    options:{responsive:true,
+      plugins:{legend:{labels:{color:'#aac4e0',font:{size:10}}}},
+      scales:{
+        y:{min:0,max:25,grid:{color:'#1e3a5f'},ticks:{color:'#7a9bbf'},
+           title:{display:true,text:'°C',color:'#7a9bbf'}},
+        x:{grid:{display:false},ticks:{color:'#7a9bbf'}}
+      }}
+  });
+
+  cpuChart = new Chart(document.getElementById('cpuChart').getContext('2d'),{
+    type:'line',
+    data:{labels:[], datasets: makeDatasets(nodeIds)},
+    options:{responsive:true,
+      plugins:{legend:{labels:{color:'#aac4e0',font:{size:10}}}},
+      scales:{
+        y:{min:0,max:110,grid:{color:'#1e3a5f'},ticks:{color:'#7a9bbf'},
+           title:{display:true,text:'%',color:'#7a9bbf'}},
+        x:{grid:{display:false},ticks:{color:'#7a9bbf'}}
+      }}
+  });
+}
+
+async function fetchSnapshot(){
+  const res  = await fetch('/api/twin/snapshot');
+  const data = await res.json();
+  renderNodes(data);
+  updateCharts(data);
+  updateAlerts(data);
+  fetchStats();
+}
+
+async function fetchStats(){
+  const res  = await fetch('/api/twin/stats');
+  const data = await res.json();
+  document.getElementById('sHealthy').textContent = data.nodes_healthy;
+  document.getElementById('sRisk').textContent    = data.nodes_at_risk;
+  document.getElementById('sRate').textContent    = data.anomaly_rate+'%';
+  document.getElementById('sSnaps').textContent   = data.snapshots;
+  document.getElementById('sTotal').textContent   = data.total_anomalies;
+}
+
+function renderNodes(nodes){
+  const grid = document.getElementById('nodeGrid');
+  grid.innerHTML = nodes.map(n => {
+    const isAnom = n.status === 'ANOMALY';
+    const cls    = isAnom ? 'anomaly' : 'normal';
+    const badge  = isAnom
+      ? '<span class="node-badge badge-anomaly">⚠ ANOMALY</span>'
+      : '<span class="node-badge badge-normal">✓ NORMAL</span>';
+
+    const metric = (label, val, unit, min, max) => {
+      const ok = val >= min && val <= max;
+      return `<div class="metric">
+        <label>${label}</label>
+        <div class="mval ${ok?'ok':'bad'}">${val}${unit}</div>
+      </div>`;
+    };
+
+    const alertsHtml = n.alerts.length ? n.alerts.map(a=>`
+      <div class="alert-item">
+        <div class="atype">${a.metric} Breach <span class="sev-${a.severity.toLowerCase()}">${a.severity}</span></div>
+        <div class="ainfo">Value: ${a.value} · Safe: ${a.safe}</div>
+      </div>`).join('') : '';
+
+    return `<div class="node-card ${cls}">
+      <div class="node-header">
+        <div><div class="node-name">${n.node_name}</div><div class="node-type">${n.node_type} · ${n.node_id}</div></div>
+        ${badge}
+      </div>
+      <div class="metrics">
+        ${metric('🌡 Temp',   n.temperature, '°C',  1,   8)}
+        ${metric('💧 Humidity', n.humidity,  '%',   55,  85)}
+        ${metric('📊 Pressure', n.pressure,  ' kPa',95, 105)}
+        ${metric('💻 CPU',    n.cpu_load,    '%',   0,   80)}
+      </div>
+      ${n.alerts.length ? '<div class="node-alerts">'+alertsHtml+'</div>' : ''}
+    </div>`;
+  }).join('');
+}
+
+function updateCharts(nodes){
+  snap++;
+  const label = 'T'+snap;
+
+  [tempChart, cpuChart].forEach(c => {
+    c.data.labels.push(label);
+    if(c.data.labels.length > 20){
+      c.data.labels.shift();
+      c.data.datasets.forEach(d=>d.data.shift());
+    }
+  });
+
+  nodes.forEach((n,i)=>{
+    tempChart.data.datasets[i].data.push(n.temperature);
+    cpuChart.data.datasets[i].data.push(n.cpu_load);
+  });
+
+  tempChart.update();
+  cpuChart.update();
+}
+
+function updateAlerts(nodes){
+  nodes.forEach(n=>{
+    if(n.alerts.length){
+      n.alerts.forEach(a=>{
+        alertLog.unshift({node:n.node_name, id:n.node_id, ...a, time:n.timestamp});
+      });
+    }
+  });
+  renderAlertLog();
+}
+
+function renderAlertLog(){
+  const el = document.getElementById('alertLog');
+  if(!alertLog.length){el.innerHTML='<p class="no-alerts">No anomalies detected yet.</p>';return;}
+  el.innerHTML = alertLog.slice(0,20).map(a=>`
+    <div class="log-entry">
+      <div>
+        <div class="log-node">${a.node} <span style="color:#7a9bbf;font-size:.7rem">(${a.id})</span></div>
+        <div class="log-detail">${a.metric} — ${a.value} (Safe: ${a.safe})
+          <span class="sev-${a.severity.toLowerCase()}" style="margin-left:6px">${a.severity}</span>
+        </div>
+      </div>
+      <div class="log-time">${a.time}</div>
+    </div>`).join('');
+}
+
+// Auto refresh every 6 seconds
+setInterval(fetchSnapshot, 6000);
+initCharts();
+fetchSnapshot();
+</script>
+</body>
+</html>

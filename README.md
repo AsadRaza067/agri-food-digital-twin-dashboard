@@ -1,89 +1,60 @@
-# 🌾 Agri-food Supply Chain — Cyber Digital Twin Dashboard
+# Semantic Aware Cyber Digital Twin (SA CDT) — Supply Chain Monitoring Dashboard
 
-A real-time **Cyber Digital Twin (CDT)** monitoring dashboard for agri-food supply chains — providing a live virtual replica of 4 supply chain nodes with real-time anomaly detection, alert logging, and historical trend visualisation.
+A real time, multi node Cyber Digital Twin (CDT) monitoring dashboard engineered specifically for critical agri food supply chains. This system serves as a live virtual replica of distributed industrial nodes, implementing high frequency state synchronization, threshold driven anomaly detection, and continuous state mirroring.
 
-## Project Overview
+## Project Overview & Research Context
+This prototype implements the core **Digital Twin Mirroring & Visualization Layer** of a larger proposed **Semantic Aware Cyber Digital Twin (SA CDT)** architecture. It acts as a digital mirror for physical agri food infrastructure, continuously tracking process telemetry, environmental boundaries, and edge computing health metrics to provide immediate operational awareness.
 
-This project implements the **Digital Twin monitoring layer** of a Semantic-Aware CDT architecture for agri-food supply chains. It creates a virtual mirror of physical supply chain nodes — continuously monitoring sensor data, detecting anomalies, and providing operators with real-time situational awareness.
+This dashboard represents a foundational component for the **ARDÚ Doctoral Scholarship 2026** research proposal under the supervision of **Dr. Mansoor Ahmed** at **Maynooth University (ADAPT Centre)**. 
 
-### Supply Chain Nodes Monitored:
-| Node | Type |
-|---|---|
-| Dairy Processing Plant A | Processing |
-| Cold Storage Warehouse B | Storage |
-| Refrigerated Transport C | Transport |
-| Distribution Hub D | Distribution |
+### Architectural Mapping:
+1. **Physical Edge Layer:** Simulated IoT multi sensor array operating at the supply chain edge.
+2. **Digital Twin Layer:** This dashboard — executing real time state mirroring, virtual telemetry mapping, and temporal logging.
+3. **Analytical Filter Layer:** Deterministic rule based severity classification (`CRITICAL` and `WARNING`).
+4. **Next Research Phase:** Integrating a Semantic Web Reasoning Layer (OWL 2 DL, RDF, and SWRL rules via Apache Jena) to close the cyber physical semantic gap and contextually distinguish genuine cyberattacks from benign equipment failures.
 
-### Metrics Monitored Per Node:
--  **Temperature** — cold chain integrity (safe: 1–8°C)
--  **Humidity** — storage conditions (safe: 55–85%)
--  **Atmospheric Pressure** — environment monitoring (safe: 95–105 kPa)
--  **CPU Load** — controller health (safe: 0–80%)
--  **Network Traffic** — anomalous traffic detection (safe: 0–900 KB/s)
+---
 
-##  Research Motivation
+## Monitored Topology & Boundary Conditions
 
-This dashboard is a **core prototype** for PhD research on Semantic-Aware Cyber Digital Twins for Agri-food Supply Chains at Maynooth University (Dr. Mansoor Ahmed, ADAPT Centre).
+The framework concurrently simulates and mirrors four heterogeneous nodes critical to the Irish and global meat dairy logistics lifecycle:
 
-In a full SA-CDT architecture, this dashboard represents:
-- **Physical Layer** → IoT sensors on supply chain nodes
-- **Digital Twin Layer** → virtual replica with real-time state mirroring
-- **Anomaly Detection Layer** → threshold-based breach detection
+| Node Type | Supply Chain Stage | Core Responsibility / Process Monitored |
+| :--- | :--- | :--- |
+| **Dairy Processing Plant A** | Primary Processing | Pasteurization, vat monitoring, and processing throughput |
+| **Cold Storage Warehouse B** | Warehouse Storage | Cold chain preservation integrity and ambient climate control |
+| **Refrigerated Transport C** | Logistics & Distribution | In transit asset protection and mobile sensor telemetry |
+| **Distribution Hub D** | Retail Logistics | Final mile inventory reception and regional dispatch security |
 
-The next research step is adding a **semantic reasoning layer** (OWL ontology) that interprets anomalies in context — distinguishing sensor faults from cyberattacks.
+### Telemetry & Resource Boundaries Checked:
+* **Temperature:** Cold chain validation bounds **(Safe Zone: 1°C – 8°C)**.
+* **Humidity:** Environmental degradation control **(Safe Zone: 55% – 85%)**.
+* **Atmospheric Pressure:** Storage enclosure vacuum verification **(Safe Zone: 95 kPa – 105 kPa)**.
+* **CPU Load:** Edge gateway controller health and denial of service indicator **(Safe Zone: 0% – 80%)**.
+* **Network Traffic:** Inbound Outbound bandwidth tracking for anomaly signature filtering **(Safe Zone: 0 KB/s – 900 KB/s)**.
 
-##  Tech Stack
+---
 
-| Component | Technology |
-|---|---|
-| Backend | Python, Flask |
-| Frontend | HTML, CSS, JavaScript |
-| Visualisation | Chart.js |
-| Twin Simulation | Python sensor models |
+## Core Technical Capabilities
+* **High Frequency Synchronization:** Implements a distributed state monitoring engine featuring a rigid **six second synchronization cycle** to simulate near instantaneous physical to digital state updates.
+* **Dual Tier Severity Classification:** Automated evaluation of raw incoming telemetry against safe boundary thresholds, instant triggering of visual states based on `WARNING` and `CRITICAL` breach definitions[cite: 5].
+* **Asynchronous Logging:** Non blocking event logging mechanism that generates timestamped, audit ready records of all boundary violations.
+* **Responsive Visual Analytics:** Real time data streaming into a dynamic UI, using asynchronous frontend polling and `Chart.js` for real time trend analytics[cite: 5].
 
-##  How to Run
+---
 
+## Tech Stack & Architecture
+
+* **Backend Engine:** Python, Flask (Micro framework hosting the synchronization routing and telemetry simulation engines)
+* **Frontend Dashboard:** HTML5, CSS3 (Tailored Industrial UI Layout), Vanilla JavaScript (Asynchronous DOM state updating)
+* **Data Visualization:** Chart.js (Real time multi axis time series visualization)
+* **Simulation Layer:** High fidelity Python mathematical sensor models tracking randomized walk variants within industrial boundaries.
+
+---
+
+## Deployment & Installation
+
+### 1. Clone the Repository
 ```bash
-# 1. Clone the repository
-git clone https://github.com/AsadRaza067/agri-food-digital-twin-dashboard.git
+git clone [https://github.com/AsadRaza067/agri-food-digital-twin-dashboard.git](https://github.com/AsadRaza067/agri-food-digital-twin-dashboard.git)
 cd agri-food-digital-twin-dashboard
-
-# 2. Install dependencies
-pip install -r requirements.txt
-
-# 3. Run
-python app.py
-
-# 4. Open browser
-# http://localhost:5000
-```
-
-##  Project Structure
-
-```
-agri-food-digital-twin-dashboard/
-├── app.py              # Flask backend + node simulation + anomaly detection
-├── index.html          # Live Digital Twin dashboard
-├── requirements.txt    # Dependencies
-└── README.md
-```
-
-## Future Extensions
-
-- Add OWL ontology semantic reasoning layer
-- Integrate real IoT hardware (Raspberry Pi sensors)
-- Connect to Supply Chain Threat Classifier (ML anomaly detection)
-- Add MQTT protocol for real sensor data ingestion
-- Implement federated CDT across multiple supply chain operators
-
-## Related Projects
-
-- [Agri-food IoT Anomaly Monitor](https://github.com/AsadRaza067/agri-iot-anomaly-monitor) — IoT data layer
-- [Supply Chain Threat Classifier](https://github.com/AsadRaza067/supply-chain-threat-classifier) — ML threat detection
-
-## Author
-
-**Asad Raza**
-BSc Computer Science — BIIT, PMAS Arid Agriculture University Rawalpindi
-📧 asadraza0667@gmail.com
-🔗 [LinkedIn](https://www.linkedin.com/in/asad-raza-a007r)

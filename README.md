@@ -1,60 +1,170 @@
-# Semantic Aware Cyber Digital Twin (SA CDT) — Supply Chain Monitoring Dashboard
+# Semantic-Aware Cyber Digital Twin (SA-CDT) Supply Chain Monitoring Dashboard
 
-A real time, multi node Cyber Digital Twin (CDT) monitoring dashboard engineered specifically for critical agri food supply chains. This system serves as a live virtual replica of distributed industrial nodes, implementing high frequency state synchronization, threshold driven anomaly detection, and continuous state mirroring.
-
-## Project Overview & Research Context
-This prototype implements the core **Digital Twin Mirroring & Visualization Layer** of a larger proposed **Semantic Aware Cyber Digital Twin (SA CDT)** architecture. It acts as a digital mirror for physical agri food infrastructure, continuously tracking process telemetry, environmental boundaries, and edge computing health metrics to provide immediate operational awareness.
-
-This dashboard represents a foundational component for the **ARDÚ Doctoral Scholarship 2026** research proposal under the supervision of **Dr. Mansoor Ahmed** at **Maynooth University (ADAPT Centre)**. 
-
-### Architectural Mapping:
-1. **Physical Edge Layer:** Simulated IoT multi sensor array operating at the supply chain edge.
-2. **Digital Twin Layer:** This dashboard — executing real time state mirroring, virtual telemetry mapping, and temporal logging.
-3. **Analytical Filter Layer:** Deterministic rule based severity classification (`CRITICAL` and `WARNING`).
-4. **Next Research Phase:** Integrating a Semantic Web Reasoning Layer (OWL 2 DL, RDF, and SWRL rules via Apache Jena) to close the cyber physical semantic gap and contextually distinguish genuine cyberattacks from benign equipment failures.
+A real-time, multi-node Cyber Digital Twin (CDT) monitoring dashboard engineered for critical agri-food supply chains. This system serves as a live virtual replica of distributed industrial nodes, enabling continuous state mirroring, anomaly detection, and operational visibility across edge infrastructure.
 
 ---
 
-## Monitored Topology & Boundary Conditions
+## Project Overview & Research Context
 
-The framework concurrently simulates and mirrors four heterogeneous nodes critical to the Irish and global meat dairy logistics lifecycle:
+This prototype implements the **Digital Twin Mirroring & Visualization Layer** of a broader **Semantic-Aware Cyber Digital Twin (SA-CDT) architecture**.
 
-| Node Type | Supply Chain Stage | Core Responsibility / Process Monitored |
-| :--- | :--- | :--- |
-| **Dairy Processing Plant A** | Primary Processing | Pasteurization, vat monitoring, and processing throughput |
-| **Cold Storage Warehouse B** | Warehouse Storage | Cold chain preservation integrity and ambient climate control |
-| **Refrigerated Transport C** | Logistics & Distribution | In transit asset protection and mobile sensor telemetry |
-| **Distribution Hub D** | Retail Logistics | Final mile inventory reception and regional dispatch security |
+It acts as a real-time digital mirror of physical agri-food infrastructure, continuously tracking:
 
-### Telemetry & Resource Boundaries Checked:
-* **Temperature:** Cold chain validation bounds **(Safe Zone: 1°C – 8°C)**.
-* **Humidity:** Environmental degradation control **(Safe Zone: 55% – 85%)**.
-* **Atmospheric Pressure:** Storage enclosure vacuum verification **(Safe Zone: 95 kPa – 105 kPa)**.
-* **CPU Load:** Edge gateway controller health and denial of service indicator **(Safe Zone: 0% – 80%)**.
-* **Network Traffic:** Inbound Outbound bandwidth tracking for anomaly signature filtering **(Safe Zone: 0 KB/s – 900 KB/s)**.
+- Environmental telemetry
+- Supply chain process states
+- Edge computing health metrics
+
+This enables immediate operational awareness and anomaly visibility across distributed logistics systems.
+
+---
+
+## Architectural Mapping
+
+### Physical Edge Layer
+Simulated IoT multi-sensor network operating across agri-food supply chain nodes.
+
+### Digital Twin Layer (This System)
+Real-time state mirroring engine responsible for:
+- Virtual telemetry mapping
+- Continuous state synchronization
+- Temporal logging of system events
+
+### Analytical Filter Layer
+Rule-based anomaly detection system implementing:
+- CRITICAL alerts
+- WARNING alerts
+- Threshold-based evaluation logic
+
+### Future Semantic Layer (Research Extension)
+Next phase of the architecture will integrate:
+
+- OWL 2 DL ontologies  
+- RDF knowledge graphs  
+- SWRL rule reasoning (Apache Jena)
+
+This will enable semantic distinction between:
+- Genuine cyberattacks
+- Benign equipment failures
+- Environmental anomalies
+
+---
+
+## Monitored Topology & Supply Chain Nodes
+
+| Node Type | Supply Chain Stage | Core Responsibility |
+|----------|--------------------|---------------------|
+| Dairy Processing Plant A | Primary Processing | Pasteurization, vat monitoring, throughput control |
+| Cold Storage Warehouse B | Warehouse Storage | Cold chain integrity and temperature regulation |
+| Refrigerated Transport C | Logistics & Distribution | In-transit telemetry and asset protection |
+| Distribution Hub D | Retail Logistics | Final-mile inventory reception and dispatch |
+
+---
+
+## Telemetry & Monitoring Parameters
+
+- Temperature: 1°C – 8°C (Cold chain integrity)
+- Humidity: 55% – 85% (Environmental stability)
+- Atmospheric Pressure: 95 kPa – 105 kPa (Storage enclosure validation)
+- CPU Load: 0% – 80% (Edge gateway health monitoring)
+- Network Traffic: 0 – 900 KB/s (Anomaly signal detection)
 
 ---
 
 ## Core Technical Capabilities
-* **High Frequency Synchronization:** Implements a distributed state monitoring engine featuring a rigid **six second synchronization cycle** to simulate near instantaneous physical to digital state updates.
-* **Dual Tier Severity Classification:** Automated evaluation of raw incoming telemetry against safe boundary thresholds, instant triggering of visual states based on `WARNING` and `CRITICAL` breach definitions[cite: 5].
-* **Asynchronous Logging:** Non blocking event logging mechanism that generates timestamped, audit ready records of all boundary violations.
-* **Responsive Visual Analytics:** Real time data streaming into a dynamic UI, using asynchronous frontend polling and `Chart.js` for real time trend analytics[cite: 5].
+
+- High-frequency synchronization using a 6-second update cycle for real-time state mirroring
+- Dual-tier severity classification system (**CRITICAL / WARNING**) for anomaly detection
+- Asynchronous event logging with timestamped audit trails
+- Real-time UI updates using polling-based frontend architecture
+- Interactive visualization using Chart.js for time-series monitoring
+- Distributed simulation of heterogeneous IoT edge nodes
 
 ---
 
-## Tech Stack & Architecture
+## Tech Stack
 
-* **Backend Engine:** Python, Flask (Micro framework hosting the synchronization routing and telemetry simulation engines)
-* **Frontend Dashboard:** HTML5, CSS3 (Tailored Industrial UI Layout), Vanilla JavaScript (Asynchronous DOM state updating)
-* **Data Visualization:** Chart.js (Real time multi axis time series visualization)
-* **Simulation Layer:** High fidelity Python mathematical sensor models tracking randomized walk variants within industrial boundaries.
+| Layer | Technology |
+|------|------------|
+| Backend | Python, Flask |
+| Frontend | HTML5, CSS3, JavaScript |
+| Visualization | Chart.js |
+| Simulation | Python stochastic sensor models (random walk-based) |
 
 ---
 
-## Deployment & Installation
+## How to Run
 
-### 1. Clone the Repository
 ```bash
-git clone [https://github.com/AsadRaza067/agri-food-digital-twin-dashboard.git](https://github.com/AsadRaza067/agri-food-digital-twin-dashboard.git)
-cd agri-food-digital-twin-dashboard
+# 1. Clone repository
+git clone https://github.com/AsadRaza067/Semantic-Aware-Cyber-Digital-Twin-SA-CDT-Supply-Chain-Monitoring-Dashboard.git
+
+# 2. Navigate to project
+cd Semantic-Aware-Cyber-Digital-Twin-SA-CDT-Supply-Chain-Monitoring-Dashboard
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Run application
+python app.py
+
+# 5. Open in browser
+http://localhost:5000
+```
+
+---
+
+## Project Structure
+
+```text
+Semantic-Aware-Cyber-Digital-Twin-SA-CDT-Supply-Chain-Monitoring-Dashboard/
+│
+├── app.py                  # Flask backend — sensor simulation + CDT synchronization engine
+├── requirements.txt        # Python dependencies
+├── index.html              # Real-time dashboard UI (Chart.js)
+└── README.md
+```
+
+---
+
+## Research Positioning
+
+This project is part of a broader **Semantic-Aware Cyber Digital Twin (SA-CDT) research pipeline**:
+
+| Stage | Project | Role |
+|------|--------|------|
+| 1 | Edge Anomaly Detection System | Real-time IoT anomaly detection |
+| 2 | Cyber Threat Classification | ML-based multi-class attack detection |
+| 3 | Digital Twin Layer (This Project) | Real-time cyber-physical state mirroring |
+| 4 | Semantic Reasoning Layer (Future Work) | OWL/RDF-based intelligence layer |
+
+---
+
+## Future Extensions
+
+- Integration of OWL 2 DL semantic reasoning layer  
+- RDF-based knowledge graph for supply chain intelligence  
+- SWRL rule engine using Apache Jena  
+- Real IoT hardware deployment (Raspberry Pi sensor integration)  
+- MQTT-based real-time streaming architecture  
+- AI-driven predictive anomaly detection layer  
+
+---
+
+## Related Publication
+
+**Real-Time Cyber-Physical Intrusion Detection at the Industrial IoT Edge: A Lightweight Temporal Causal Explainable AI (XAI) Framework**
+
+Raza, A. (2026). Zenodo Preprint.  
+DOI: https://doi.org/10.5281/zenodo.20539991
+
+---
+
+## Author
+
+**Asad Raza**  
+BSc Computer Science — BIIT, PMAS Arid Agriculture University, Rawalpindi  
+
+📧 asadraza0667@gmail.com  
+
+🔗 LinkedIn  
+🔗 GitHub  
